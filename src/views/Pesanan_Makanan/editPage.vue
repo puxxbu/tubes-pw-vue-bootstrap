@@ -107,6 +107,11 @@ export default {
         let token = localStorage.getItem('token')
 
         onMounted(() => {
+            if (localStorage.getItem('token') == null) {
+                router.push({
+                    name: 'login'
+                })
+            }
             let config = {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -116,6 +121,7 @@ export default {
                 .then(response => {
                     //assign state posts with response data
                     users.value = response.data
+
                 }).catch(error => {
                     console.log(error.response.data.data)
                 })
@@ -140,14 +146,13 @@ export default {
         function put() {
             let nama_pesanan = pesanan_makanans.value.nama_pesanan
             let harga = pesanan_makanans.value.harga
-            let user_id = pesanan_makanans.value.user_id
 
 
 
             axios.put('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan/' + id, {
                 nama_pesanan: nama_pesanan,
                 harga: harga,
-                user_id: user_id,
+                user_id: users.value.id,
 
             }).then(() => {
                 //redirect ke post index

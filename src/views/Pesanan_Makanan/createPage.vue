@@ -9,7 +9,7 @@
                         <h4>TAMBAH PESANAN</h4>
                         <hr>
                         <form @submit.prevent="store">
-                            
+
                             <div class="form-group mb-3">
                                 <label class="form-label">Nama Pesanan</label>
                                 <input type="text" class="form-control" v-model="pesanan_makanan.nama_pesanan"
@@ -21,7 +21,7 @@
                                     }}
                                 </div>
                             </div>
-                        
+
                             <div class="form-group mb-3">
                                 <label class="form-label">Harga</label>
                                 <input type="text" class="form-control" v-model="pesanan_makanan.harga"
@@ -29,28 +29,13 @@
                                 <!-- validation -->
                                 <div v-if="validation.harga" class="mt-2 alert alert-danger">
                                     {{
-                                            validation.harga[0]
+        validation.harga[0]
                                     }}
                                 </div>
                             </div>
 
-                            <div class="form-group mb-3">
-                                <label for="content" class="form-label">NAMA PEMESAN</label>
-                                <div class="form-group mb-3">
-                                    <select class="form-select" aria-label="Gender" v-model="pesanan_makanan.user_id">
-                                        <option v-for="(user, id) in users" :key="id"
-                                            :value="user.id">{{ user.name }}</option>
-                                    </select>
-                                </div>
-                                <!-- validation -->
-                                <div v-if="validation.user_id" class="mt-2 alert alert-danger">
-                                    {{
-                                            validation.user_id[0]
-                                    }}
-                                </div>
-                            </div>
 
-                            <button type="submit"  class="btn btn-primary">SIMPAN</button>
+                            <button type="submit" class="btn btn-primary">SIMPAN</button>
                         </form>
                     </div>
                 </div>
@@ -77,15 +62,24 @@ export default {
 
         let users = ref([])
         // const picked = ref(new Date())
+        let token = localStorage.getItem('token')
 
         onMounted(() => {
-            //get API from Laravel Backend
-            axios.get('https://gentle-scrubland-87023.herokuapp.com/api/users')
+
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            axios.get('https://tubes-hotel-pw.herokuapp.com/api/user', config)
                 .then(response => {
                     //assign state posts with response data
-                    users.value = response.data.data
+                    users.value = response.data
                 }).catch(error => {
                     console.log(error.response.data.data)
+                    router.push({
+                        name: 'login'
+                    })
                 })
         })
 
@@ -98,7 +92,6 @@ export default {
         const pesanan_makanan = reactive({
             nama_pesanan: '',
             harga: '',
-            user_id: '',
         })
         //state validation
         const validation = ref([])
@@ -109,12 +102,11 @@ export default {
             console.log(pesanan_makanan)
             let nama_pesanan = pesanan_makanan.nama_pesanan
             let harga = pesanan_makanan.harga
-            let user_id = pesanan_makanan.user_id
 
-            axios.post('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan/', {
+            axios.post('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan', {
                 nama_pesanan: nama_pesanan,
                 harga: harga,
-                user_id: user_id,
+                user_id: users.value.id
             }).then(() => {
                 //redirect ke post index
                 toastr.success('Pesanan telah berhasil dibuat');
