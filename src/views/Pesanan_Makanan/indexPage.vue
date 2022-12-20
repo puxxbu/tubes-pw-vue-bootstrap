@@ -14,7 +14,6 @@
                         <table class="table table-striped table-bordered mt-4">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">NAMA PEMESAN</th>
                                     <th scope="col">NAMA PESANAN</th>
                                     <th scope="col">HARGA</th>
                                     <th scope="col">AKSI</th>
@@ -22,16 +21,14 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(pesanan_makanan, id) in pesanan_makanans" :key="id">
-                                    <template v-for="(user, id) in users" :key="id">
-                                        <td v-if="user.id == pesanan_makanan.user_id ">{{ user.name }}</td>
-                                    </template>
                                     <td>{{ pesanan_makanan.nama_pesanan }}</td>
                                     <td>{{ pesanan_makanan.harga }}</td>
                                     <td class="text-center">
                                         <router-link :to="{
                                             name: 'pesanan_makanan.edit', params: { id: pesanan_makanan.id }
                                         }" class="btn btn-sm btn-primary mx-1">EDIT</router-link>
-                                        <button class="btn btn-sm btn-danger mx-1" @click="destroyPesanan(pesanan_makanan.id)">DELETE</button>
+                                        <button class="btn btn-sm btn-danger mx-1"
+                                            @click="destroyPesanan(pesanan_makanan.id)">DELETE</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -52,29 +49,37 @@ export default {
     setup() {
         //reactive state
         let pesanan_makanans = ref([])
-        let users = ref([])
+        let user = ref([])
+        let token = localStorage.getItem('token')
         //mounted
         onMounted(() => {
-            //get API from Laravel Backend
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            axios.get('https://tubes-hotel-pw.herokuapp.com/api/user', config)
+                .then(response => {
+                    //assign state posts with response data
+                    user.value = response.data
+                    console.log(user.value.id)
+                }).catch(error => {
+                    console.log(error.response.data.data)
+                })
+
             axios.get('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan')
                 .then(response => {
                     //assign state posts with response data
                     pesanan_makanans.value = response.data.data
+                    console.log(pesanan_makanans.value)
+
                 }).catch(error => {
                     console.log(error.response.data)
                 })
-
-            axios.get('https://gentle-scrubland-87023.herokuapp.com/api/users')
-            .then(response => {
-                //assign state posts with response data
-                users.value = response.data.data
-            }).catch(error => {
-                console.log(error.response.data)
-            })
         })
 
-        const destroyPesanan = async (id) =>{
-            await axios.delete('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan/' +id)
+        const destroyPesanan = async (id) => {
+            await axios.delete('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan/' + id)
             await axios.get('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan')
                 .then(response => {
                     //assign state posts with response data
@@ -83,20 +88,20 @@ export default {
                     console.log(error.response.data)
                 })
             await axios.get('https://gentle-scrubland-87023.herokuapp.com/api/users')
-            .then(response => {
-                //assign state posts with response data
-                toastr.success("Data Pesanan Berhasil dihapus !");
-                users.value = response.data.data
-            }).catch(error => {
-                console.log(error.response.data)
-            })
+                .then(response => {
+                    //assign state posts with response data
+                    toastr.success("Data Pesanan Berhasil dihapus !");
+                    user.value = response.data.data
+                }).catch(error => {
+                    console.log(error.response.data)
+                })
         }
 
 
         //return
         return {
             pesanan_makanans,
-            users,
+            user,
             destroyPesanan
         }
     },
@@ -111,13 +116,13 @@ export default {
 
     // },
 
-//     methods: { 
-//       format_date(value){
-//          if (value) {
-//            return moment(String(value)).format('YYYYMMDD')
-//           }
-//       },
-//    },
+    //     methods: { 
+    //       format_date(value){
+    //          if (value) {
+    //            return moment(String(value)).format('YYYYMMDD')
+    //           }
+    //       },
+    //    },
 }
 </script>
 

@@ -27,27 +27,13 @@
                                 <!-- validation -->
                                 <div v-if="validation.harga" class="mt-2 alert alert-danger">
                                     {{
-                                            validation.harga[0]
+        validation.harga[0]
                                     }}
                                 </div>
                             </div>
-                            
-                            <div class="form-group mb-3">
-                                <label for="content" class="form-label">Nama Pemesan</label>
-                                <div class="form-group mb-3">
-                                    <select class="form-select" aria-label="Gender" v-model="pesanan_makanans.user_id">
-                                        <option v-for="(user, id) in users" :key="id"
-                                            :value="user.id">{{ user.name }}</option>
-                                    </select>
-                                </div>
-                                <!-- validation -->
-                                <div v-if="validation.user_id" class="mt-2 alert alert-danger">
-                                    {{
-                                            validation.user_id[0]
-                                    }}
-                                </div>
-                            </div>
-                            
+
+
+
                             <button type="submit" class="btn btn-primary">SIMPAN</button>
                         </form>
                     </div>
@@ -74,7 +60,7 @@ export default {
     //     setDateValue2(value){
     //         this.proyeks.waktu_selesai = value;
     //     },
-        
+
     // },
     // mounted() {
     //     $('#datepicker').datepicker({
@@ -88,11 +74,11 @@ export default {
     // },
 
     data() {
-        return{
+        return {
             user: {
-                name : '',
-                email : '',
-                password : null,
+                name: '',
+                email: '',
+                password: null,
             }
         }
     },
@@ -105,58 +91,64 @@ export default {
 
 
     // },
-   
+
     setup() {
         //state departemen
         const router = useRouter()
         const route = useRoute()
         const id = route.params.id;
         console.log(id);
-        
+
         //state validation
         const validation = ref([])
         //vue route
         let pesanan_makanans = ref([])
         let users = ref([])
+        let token = localStorage.getItem('token')
 
         onMounted(() => {
-            axios.get('https://gentle-scrubland-87023.herokuapp.com/api/users')
-            .then(response => {
-                //assign state posts with response data
-                users.value = response.data.data
-            }).catch(error => {
-                console.log(error.response.data.data)
-            })
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            axios.get('https://tubes-hotel-pw.herokuapp.com/api/user', config)
+                .then(response => {
+                    //assign state posts with response data
+                    users.value = response.data
+                }).catch(error => {
+                    console.log(error.response.data.data)
+                })
 
             axios.get('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan/' + id)
                 .then(response => {
                     //assign state posts with response data
-                    pesanan_makanans.value = response.data.data
-                    
+                    pesanan_makanans.value = response.data.data[0]
+                    console.log(pesanan_makanans.value)
+
                 }).catch(error => {
                     console.log(error.response.data)
-            })
-        
+                })
         }),
 
 
 
-        function edit() {
-            
-        }
+            function edit() {
+
+            }
 
         function put() {
             let nama_pesanan = pesanan_makanans.value.nama_pesanan
             let harga = pesanan_makanans.value.harga
             let user_id = pesanan_makanans.value.user_id
-            
+
 
 
             axios.put('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan/' + id, {
                 nama_pesanan: nama_pesanan,
                 harga: harga,
                 user_id: user_id,
-                
+
             }).then(() => {
                 //redirect ke post index
                 toastr.success("Data Pesanan Berhasil diedit !");

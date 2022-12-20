@@ -68,6 +68,11 @@ const routes = [
         name: "pesanan_makanan.create",
         component: () => import("@/views/Pesanan_Makanan/createPage.vue"),
       },
+      {
+        path: "/pesanan_makanan/edit/:id",
+        name: "pesanan_makanan.edit",
+        component: () => import("@/views/Pesanan_Makanan/editPage.vue"),
+      },
     ],
   },
   {
