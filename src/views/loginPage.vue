@@ -142,9 +142,12 @@ export default {
                 email: email,
                 password: password,
 
-            }).then(() => {
+            }).then(response => {
                 //redirect ke post index
                 toastr.success("Login Success");
+
+                localStorage.setItem('token', response.data.access_token)
+                console.log(localStorage.getItem('token'));
                 router.push({
                     name: 'beranda'
                 })
