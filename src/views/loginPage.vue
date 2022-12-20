@@ -133,11 +133,13 @@ export default {
 
 
         function store() {
+            // let config = {
+            //     headers: {
+            //         Authorization: value,
+            //     }
+            // }
             let email = form.email
             let password = form.password
-
-
-
             axios.post('https://tubes-hotel-pw.herokuapp.com/api/login', {
                 email: email,
                 password: password,
