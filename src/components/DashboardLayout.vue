@@ -30,6 +30,12 @@
                                     'proyek.index'
                             }" class="nav-link">Proyek</router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link :to="{
+                                name:
+                                    'pesanan_makanan.index'
+                            }" class="nav-link">Pesanan Makanan</router-link>
+                        </li>
                     </ul>
                 </div>
             </nav>
