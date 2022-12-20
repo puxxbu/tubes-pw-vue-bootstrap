@@ -146,7 +146,7 @@ export default {
                 //redirect ke post index
                 toastr.success("Login Success");
                 router.push({
-                    name: 'dashboard'
+                    name: 'beranda'
                 })
             }).catch(error => {
                 //assign state validation with error
