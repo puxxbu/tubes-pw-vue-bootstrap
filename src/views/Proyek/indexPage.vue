@@ -26,16 +26,18 @@
                                 <tr v-for="(proyek, id) in proyeks" :key="id">
                                     <td>{{ proyek.nama_proyek }}</td>
                                     <template v-for="(departemen, id) in departemens" :key="id">
-                                        <td v-if="departemen.id == proyek.departemen_id ">{{ departemen.nama_departemen }}</td>
+                                        <td v-if="departemen.id == proyek.departemen_id">{{ departemen.nama_departemen
+                                        }}</td>
                                     </template>
-                                    <td>{{ formatDate(proyek.waktu_mulai)  }}</td>
+                                    <td>{{ formatDate(proyek.waktu_mulai) }}</td>
                                     <td>{{ formatDate(proyek.waktu_selesai) }}</td>
                                     <td>{{ proyek.status ? 'Aktif' : 'Tidak Aktif' }}</td>
                                     <td class="text-center">
                                         <router-link :to="{
                                             name: 'proyek.edit', params: { id: proyek.id }
                                         }" class="btn btn-sm btn-primary mx-1">EDIT</router-link>
-                                        <button class="btn btn-sm btn-danger mx-1" @click="destroyProyek(proyek.id)">DELETE</button>
+                                        <button class="btn btn-sm btn-danger mx-1"
+                                            @click="destroyProyek(proyek.id)">DELETE</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -70,16 +72,16 @@ export default {
                 })
 
             axios.get('http://localhost:8000/api/departemens')
-            .then(response => {
-                //assign state posts with response data
-                departemens.value = response.data.data
-            }).catch(error => {
-                console.log(error.response.data)
-            })
+                .then(response => {
+                    //assign state posts with response data
+                    departemens.value = response.data.data
+                }).catch(error => {
+                    console.log(error.response.data)
+                })
         })
 
-        const destroyProyek = async (id) =>{
-            await axios.delete('http://localhost:8000/api/proyeks/' +id)
+        const destroyProyek = async (id) => {
+            await axios.delete('http://localhost:8000/api/proyeks/' + id)
             await axios.get('http://localhost:8000/api/proyeks')
                 .then(response => {
                     //assign state posts with response data
@@ -88,13 +90,13 @@ export default {
                     console.log(error.response.data)
                 })
             await axios.get('http://localhost:8000/api/departemens')
-            .then(response => {
-                //assign state posts with response data
-                toastr.success("Data Proyek Berhasil dihapus !");
-                departemens.value = response.data.data
-            }).catch(error => {
-                console.log(error.response.data)
-            })
+                .then(response => {
+                    //assign state posts with response data
+                    toastr.success("Data Proyek Berhasil dihapus !");
+                    departemens.value = response.data.data
+                }).catch(error => {
+                    console.log(error.response.data)
+                })
         }
 
 
@@ -107,8 +109,8 @@ export default {
     },
 
     computed: {
-        formatDate(){
-            return (v)=>{
+        formatDate() {
+            return (v) => {
                 return moment(String(v)).format('D MMMM YYYY')
             }
         }
@@ -116,13 +118,13 @@ export default {
 
     },
 
-//     methods: { 
-//       format_date(value){
-//          if (value) {
-//            return moment(String(value)).format('YYYYMMDD')
-//           }
-//       },
-//    },
+    //     methods: { 
+    //       format_date(value){
+    //          if (value) {
+    //            return moment(String(value)).format('YYYYMMDD')
+    //           }
+    //       },
+    //    },
 }
 </script>
 
