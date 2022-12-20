@@ -48,7 +48,35 @@
 </template>
 
 <script>
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
 export default {
+    setup() {
+        let token = localStorage.getItem('token')
+        let users = ref([])
+        const router = useRouter()
+        // const route = useRoute()
+        onMounted(() => {
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            axios.get('https://tubes-hotel-pw.herokuapp.com/api/user', config)
+                .then(response => {
+                    //assign state posts with response data
+                    users.value = response.data
+
+                }).catch(error => {
+                    console.log(error.response.data.data)
+                    router.push({
+                        name: 'login'
+                    })
+                })
+        })
+    }
+
 }
 </script>
 <style>

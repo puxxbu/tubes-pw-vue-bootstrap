@@ -107,11 +107,6 @@ export default {
         let token = localStorage.getItem('token')
 
         onMounted(() => {
-            if (localStorage.getItem('token') == null) {
-                router.push({
-                    name: 'login'
-                })
-            }
             let config = {
                 headers: {
                     Authorization: `Bearer ${token}`
