@@ -13,31 +13,33 @@
                                     <form @submit.prevent="store" class="mx-1 mx-md-4">
 
                                         <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                            <font-awesome-icon icon="fa-user" size="xl" class="me-3 mt-4" />
                                             <div class="form-outline flex-fill mb-0">
                                                 <label class="form-label" for="form3Example3c">Your Email</label>
                                                 <input type="email" v-model="form.email" id="form3Example3c"
                                                     class="form-control" />
-                                                <div v-if="validation.email" class="mt-2 alert alert-danger">
-                                                    {{
-                                                            validation.email[0]
-                                                    }}
-                                                </div>
+
 
                                             </div>
                                         </div>
+                                        <div v-if="validation.email" class="mt-2 alert alert-danger">
+                                            {{
+                                                    validation.email[0]
+                                            }}
+                                        </div>
 
                                         <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                                            <p><font-awesome-icon icon="fa-key" size="xl" class="me-3 mt-5" /></p>
                                             <div class="form-outline flex-fill mb-0">
                                                 <label class="form-label" for="form3Example4c">Password</label>
                                                 <input type="password" v-model="form.password" id="form3Example4c"
                                                     class="form-control" />
-                                                <div v-if="validation.password" class="mt-2 alert alert-danger">
-                                                    {{ validation.password[0] }}
-                                                </div>
+
 
                                             </div>
+                                        </div>
+                                        <div v-if="validation.password" class=" ml-3 mt-2 alert alert-danger">
+                                            {{ validation.password[0] }}
                                         </div>
 
 
@@ -144,7 +146,7 @@ export default {
                 //redirect ke post index
                 toastr.success("Login Success");
                 router.push({
-                    name: 'beranda'
+                    name: 'dashboard'
                 })
             }).catch(error => {
                 //assign state validation with error
