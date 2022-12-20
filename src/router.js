@@ -58,6 +58,16 @@ const routes = [
         name: "proyek.edit",
         component: () => import("@/views/Proyek/editPage.vue"),
       },
+      {
+        path: "/pesanan_makanan",
+        name: "pesanan_makanan.index",
+        component: () => import("@/views/Pesanan_Makanan/indexPage.vue"),
+      },
+      {
+        path: "/pesanan_makanan/create",
+        name: "pesanan_makanan.create",
+        component: () => import("@/views/Pesanan_Makanan/createPage.vue"),
+      },
     ],
   },
   {
