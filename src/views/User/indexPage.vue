@@ -7,30 +7,42 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-0 rounded shadow">
+                    
                     <div class="card-body">
                         <router-link :to="{ name: 'user.edit' }" class="btn btn-md btn-success">UPDATE
-                            DATA USER
+                            PROFILE USER
                         </router-link>
-                        <table class="table table-striped table-bordered mt-4">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">NAMA USER</th>
-                                    <th scope="col">EMAIL</th>
-                                    <th scope="col">JENIS KELAMIN</th>
-                                    <th scope="col">TANGGAL LAHIR</th>
-                                    <th scope="col">WILAYAH</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(user, id) in users" :key="id">
-                                    <td>{{ user.name }}</td>
-                                    <td>{{ user.email }}</td>
-                                    <td>{{ user.jenis_kelamin }}</td>
-                                    <td>{{ user.tanggal_lahir }}</td>
-                                    <td>{{ user.wilayah }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <br>
+                        <form class="row g-3 " >
+                            <br>
+                            <div class="col-md-12">
+                                <br>
+                                <label for="name" class="form-label">Nama User</label>
+                                <input type="text" class="form-control" id="name" name="name">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="email" name="email" >
+                            </div>
+                            <div class="col-md-12">
+                                <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                                <input type="text"  class="form-control" id="jenis_kelamin" name="jenis_kelamin" >
+                            </div>
+                            <div class="col-md-12">
+                                <label for="phonennum" class="form-label">Tanggal lahir</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="datepicker"
+                                        v-model="users.tanggal_lahir">
+                                    <span class="input-group-text bg-light d-block">
+                                        <font-awesome-icon icon="fa-solid fa-calendar-alt" />
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="wilayah" class="form-label">Wilayah</label>
+                                <input type="text"  class="form-control" id="wilayah" name="wilayah" >
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
