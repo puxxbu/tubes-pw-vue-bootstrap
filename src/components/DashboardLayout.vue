@@ -131,11 +131,17 @@ export default {
 
 
         function logout() {
-            let config = {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
+            // let config = {
+            //     headers: {
+            //         Authorization: `Bearer ${token}`
+            //     }
+            // }
+            localStorage.removeItem('token')
+            localStorage.removeItem('id')
+            localStorage.removeItem('nama_user')
+            router.push({
+                name: 'login'
+            })
             // axios.post('https://tubes-hotel-pw.herokuapp.com/api/logout', config)
             //     .then(response => {
             //         //assign state posts with response data
@@ -153,22 +159,22 @@ export default {
 
             //     })
 
-            axios.post('https://tubes-hotel-pw.herokuapp.com/api/logout', config)
-                .then(response => {
-                    //assign state posts with response data
-                    console.log(response.data)
-                    // localStorage.removeItem('token')
-                    // localStorage.removeItem('id')
-                    // localStorage.removeItem('nama_user')
-                    // router.push({
-                    //     name: 'login'
-                    // })
+            // axios.post('https://tubes-hotel-pw.herokuapp.com/api/logout', config)
+            //     .then(response => {
+            //         //assign state posts with response data
+            //         console.log(response.data)
+            //         // localStorage.removeItem('token')
+            //         // localStorage.removeItem('id')
+            //         // localStorage.removeItem('nama_user')
+            //         // router.push({
+            //         //     name: 'login'
+            //         // })
 
-                }).catch(error => {
-                    console.log(error.response.data)
-                    console.log(token)
+            //     }).catch(error => {
+            //         console.log(error.response.data)
+            //         console.log(token)
 
-                })
+            //     })
 
         }
 
