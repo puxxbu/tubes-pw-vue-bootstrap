@@ -21,7 +21,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="content" class="form-label">Email</label>
-                                <input class="form-control" v-model="users.nama_manager"
+                                <input disabled class="form-control" v-model="users.email"
                                     placeholder="Masukkan nama manager">
                                 <!-- validation -->
                                 <div v-if="validation.email" class="mt-2 alert alert-danger">
@@ -31,12 +31,12 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="content" class="form-label">Jenis Kelamin</label>
-                                <input class="form-control" type="number" v-model="users.jenis_kelamin"
+                                <input class="form-control" type="text" v-model="users.jenis_kelamin"
                                     placeholder="Masukkan jenis kelamin">
                                 <!-- validation -->
                                 <div v-if="validation.jenis_kelamin" class="mt-2 alert alert-danger">
                                     {{
-                                    validation.jenis_kelamin[0]
+                                            validation.jenis_kelamin[0]
                                     }}
                                 </div>
                             </div>
@@ -59,12 +59,12 @@
 
                             <div class="form-group mb-3">
                                 <label for="content" class="form-label">Wilayah</label>
-                                <input class="form-control" type="number" v-model="users.wilayah"
+                                <input class="form-control" type="text" v-model="users.wilayah"
                                     placeholder="Masukkan alamat wilayah">
                                 <!-- validation -->
                                 <div v-if="validation.wilayah" class="mt-2 alert alert-danger">
                                     {{
-                                    validation.wilayah[0]
+        validation.wilayah[0]
                                     }}
                                 </div>
                             </div>
@@ -92,53 +92,70 @@ export default {
     },
     mounted() {
         $('#datepicker').datepicker({
-            dateFormat: "dd-mm-yy",
+            dateFormat: "yy-mm-dd",
             onSelect: this.setDateValue1
         });
     },
 
     data() {
-        return{
+        return {
             user: {
-                name : '',
-                email : '',
-                jenis_kelamin : '',
-                tanggal_lahir : '',
-                wilayah : '',
+                name: '',
+                email: '',
+                jenis_kelamin: '',
+                tanggal_lahir: '',
+                wilayah: '',
             }
         }
     },
-   
+
     setup() {
         //state departemen
         const router = useRouter()
         const route = useRoute()
         const id = route.params.id;
         console.log(id);
-        
+        let token = localStorage.getItem('token')
+
+
         //state validation
         const validation = ref([])
         //vue route
         let users = ref([])
+
+
+
+
         onMounted(() => {
-            axios
-            .get('http://localhost:8000/api/departemens/' + id )
-            .then( response => (users.value = response.data.data))
-            // this.departemen.nama_departemen = departemens.value.nama_departemen;
-            // this.departemen.nama_manager = departemens.value.nama_manager;
-            // this.departemen.jumlah_pegawai = departemens.value.jumlah_pegawai;
-            
+            console.log(token)
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            axios.get('https://tubes-hotel-pw.herokuapp.com/api/user', config)
+                .then(response => {
+                    //assign state posts with response data
+                    users.value = response.data
+
+                }).catch(error => {
+                    console.log(error.response.data.data)
+                    router.push({
+                        name: 'login'
+                    })
+                })
         }),
-        function edit() {
-            
-        }
+            function edit() {
+
+            }
         function put() {
             let name = users.value.name
             let email = users.value.email
             let jenis_kelamin = users.value.jenis_kelamin
             let tanggal_lahir = users.value.tanggal_lahir
             let wilayah = users.value.wilayah
-            axios.put('https://tubes-hotel-pw.herokuapp.com/api/user/' + id, {
+            console.log(wilayah + "WILAYAH")
+            axios.put('https://tubes-hotel-pw.herokuapp.com/api/update-user/' + localStorage.getItem('id'), {
                 name: name,
                 email: email,
                 jenis_kelamin: jenis_kelamin,
@@ -168,4 +185,5 @@ export default {
 </script>
 
 <style>
+
 </style>
