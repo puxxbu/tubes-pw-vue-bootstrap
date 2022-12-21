@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card border-0 rounded shadow">
                     <div class="card-body">
-                        <h4>EDIT DATA USER </h4>
+                        <h4>UPDATE DATA USER</h4>
                         <hr>
                         <form @submit.prevent="put">
                             <div class="form-group mb-3">
@@ -68,7 +68,7 @@
                                     }}
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                            <button type="submit" class="btn btn-primary">UPDATE DATA</button>
                         </form>
                     </div>
                 </div>
@@ -148,7 +148,7 @@ export default {
                 //redirect ke post index
                 toastr.success("Data User Berhasil diupdate!")
                 router.push({
-                    name: 'user.index'
+                    name: 'user.edit'
                 })
             }).catch(error => {
                 //assign state validation with error
