@@ -27,13 +27,13 @@
                                     <td>{{ reservasi.tanggal_masuk }}</td>
                                     <td>{{ reservasi.tanggal_keluar }}</td>
                                     <td>{{ reservasi.status }}</td>
-                                    <!-- <td class="text-center">
+                                    <td class="text-center">
                                         <router-link :to="{
                                             name: 'reservasi.edit', params: { id: reservasi.id }
                                         }" class="btn btn-sm btn-primary mx-1">EDIT</router-link>
                                         <button class="btn btn-sm btn-danger mx-1"
                                             @click="destroyPesanan(reservasi.id)">DELETE</button>
-                                    </td> -->
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

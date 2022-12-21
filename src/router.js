@@ -84,6 +84,11 @@ const routes = [
         component: () => import("@/views/Reservasi/indexPage.vue"),
       },
       {
+        path: "/reservasi/edit/:id",
+        name: "reservasi.edit",
+        component: () => import("@/views/Reservasi/editPage.vue"),
+      },
+      {
         path: "/data_penginap",
         name: "data_penginap.index",
         component: () => import("@/views/Data_Penginap/indexPage.vue"),
