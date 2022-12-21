@@ -72,12 +72,12 @@ export default {
                             //assign state posts with response data
                             reservasis.value = response.data.data
                             console.log(reservasis.value)
-                            // var filterData = pesanan_makanans.value.filter(function (el) {
-                            //     return el.user_id == user.value.id
-                            // })
+                            var filterData = reservasis.value.filter(function (el) {
+                                return el.nama_pemesan == localStorage.getItem('nama_user')
+                            })
 
-                            // pesanan_makanans.value = filterData
-                            // console.log(user.value.id + "PESANAN")
+                            reservasis.value = filterData
+
 
                         }).catch(error => {
                             console.log(error.response.data)
