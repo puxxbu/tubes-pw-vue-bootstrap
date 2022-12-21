@@ -8,32 +8,38 @@
             <div class="col-md-12">
                 <div class="card border-0 rounded shadow">
                     <div class="card-body">
-                        <router-link :to="{ name: 'datapenginap.create' }" class="btn btn-md btn-success">TAMBAH
-                            PESANAN
+                        <router-link :to="{ name: 'data_penginap.create' }" class="btn btn-md btn-success">TAMBAH
+                            DATA PENGINAP
                         </router-link>
                         <table class="table table-striped table-bordered mt-4">
                             <thead class="thead-dark">
                                 <tr>
+                                    <th scope="col">USER LOGIN</th>
                                     <th scope="col">NIK</th>
                                     <th scope="col">NAMA</th>
                                     <th scope="col">TANGGAL LAHIR</th>
                                     <th scope="col">WILAYAH</th>
                                     <th scope="col">JENIS KELAMIN</th>
+                                    <th scope="col">ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(datapenginap, id) in datapenginaps" :key="id">
-                                    <td>{{ datapenginap.nik }}</td>
-                                    <td>{{ datapenginap.nama }}</td>
-                                    <td>{{ datapenginap.tanngal_lahir }}</td>
-                                    <td>{{ datapenginap.wilayah }}</td>
-                                    <td>{{ datapenginap.jenis_kelamin }}</td>
+                                <tr v-for="(data_penginap, id) in data_penginapS" :key="id">
+                                    <template v-for="(user, id) in users" :key="id">
+                                        <td v-if="user.id == data_penginap.user_id">{{ user.name
+                                        }}</td>
+                                    </template>
+                                    <td>{{ data_penginap.nik }}</td>
+                                    <td>{{ data_penginap.nama }}</td>
+                                    <td>{{ data_penginap.tanngal_lahir }}</td>
+                                    <td>{{ data_penginap.wilayah }}</td>
+                                    <td>{{ data_penginap.jenis_kelamin }}</td>
                                     <td class="text-center">
                                         <router-link :to="{
-                                            name: 'datapenginap.edit', params: { id: datapenginap.id }
+                                            name: 'data_penginap.edit', params: { id: data_penginap.id }
                                         }" class="btn btn-sm btn-primary mx-1">EDIT</router-link>
                                         <button class="btn btn-sm btn-danger mx-1"
-                                            @click="destroyPesanan(datapenginap.id)">DELETE</button>
+                                            @click="destroyPenginap(data_penginap.id)">DELETE</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -53,7 +59,7 @@ import toastr from 'toastr'
 export default {
     setup() {
         //reactive state
-        let datapenginaps = ref([])
+        let data_penginaps = ref([])
         let user = ref([])
         let token = localStorage.getItem('token')
         //mounted
@@ -68,35 +74,34 @@ export default {
                     //assign state posts with response data
                     user.value = response.data
                     console.log(user.value.id)
+                    axios.get('https://tubes-hotel-pw.herokuapp.com/api/data-penginap')
+                        .then(response => {
+                            //assign state posts with response data
+                            data_penginaps.value = response.data.data
+                            var filterData = data_penginaps.value.filter(function (el) {
+                                return el.user_id == user.value.id
+                            })
+
+                            data_penginaps.value = filterData
+                            console.log(user.value.id + "PESANAN")
+
+                        }).catch(error => {
+                            console.log(error.response.data)
+                        })
                 }).catch(error => {
                     console.log(error.response.data.data)
                 })
 
-            axios.get('https://tubes-hotel-pw.herokuapp.com/api/datapenginap')
-                .then(response => {
-                    //assign state posts with response data
-                    datapenginaps.value = response.data.data
-                    console.log(datapenginaps.value)
 
-                }).catch(error => {
-                    console.log(error.response.data)
-                })
         })
 
-        const destroyPesanan = async (id) => {
-            await axios.delete('https://tubes-hotel-pw.herokuapp.com/api/datapenginap/' + id)
-            await axios.get('https://tubes-hotel-pw.herokuapp.com/api/datapenginap')
+        const destroyPenginap = async (id) => {
+            await axios.delete('https://tubes-hotel-pw.herokuapp.com/api/data-penginap/' + id)
+            await axios.get('https://tubes-hotel-pw.herokuapp.com/api/data-penginap')
                 .then(response => {
                     //assign state posts with response data
-                    datapenginaps.value = response.data.data
-                }).catch(error => {
-                    console.log(error.response.data)
-                })
-            await axios.get('https://gentle-scrubland-87023.herokuapp.com/api/users')
-                .then(response => {
-                    //assign state posts with response data
-                    toastr.success("Data Pesanan Berhasil dihapus !");
-                    user.value = response.data.data
+                    data_penginaps.value = response.data.data
+                    toastr.success("Data Penginap Berhasil dihapus !");
                 }).catch(error => {
                     console.log(error.response.data)
                 })
@@ -105,9 +110,9 @@ export default {
 
         //return
         return {
-            datapenginaps,
+            data_penginaps,
             user,
-            destroyPesanan
+            destroyPenginap
         }
     },
 

@@ -1,6 +1,6 @@
 <template>
     <header class="navbar navbar-dark sticky-top bg-dark flex-mdnowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">VUE_D_0606</a>
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">HOTEL GRANDWEB</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#sidebarMenu" ariacontrols="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -12,7 +12,7 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <router-link :to="{
                                 name:
                                     'departemen.index'
@@ -29,6 +29,18 @@
                                 name:
                                     'proyek.index'
                             }" class="nav-link">Proyek</router-link>
+                        </li> -->
+                        <li class="nav-item">
+                            <router-link :to="{
+                                name:
+                                    'data_penginap.index'
+                            }" class="nav-link">Akun Penginap</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link :to="{
+                                name:
+                                    'reservasi.index'
+                            }" class="nav-link">Reservasi</router-link>
                         </li>
                         <li class="nav-item">
                             <router-link :to="{
@@ -36,6 +48,7 @@
                                     'pesanan_makanan.index'
                             }" class="nav-link">Pesanan Makanan</router-link>
                         </li>
+                        
                     </ul>
                 </div>
             </nav>
@@ -80,6 +93,7 @@ export default {
 }
 </script>
 <style>
+
 body {
     font-size: .875rem;
 }
