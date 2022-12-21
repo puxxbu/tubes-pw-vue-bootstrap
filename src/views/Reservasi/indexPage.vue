@@ -14,7 +14,7 @@
                         <table class="table table-striped table-bordered mt-4">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">JENIS_KAMAR</th>
+                                    <th scope="col">JENIS KAMAR</th>
                                     <th scope="col">TANGGAL MASUK</th>
                                     <th scope="col">TANGGAL KELUAR</th>
                                     <th scope="col">STATUS</th>

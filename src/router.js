@@ -7,57 +7,57 @@ const routes = [
     name: "beranda",
     component: () => import("@/components/DashboardLayout.vue"),
     children: [
-      {
-        path: "/departemen",
-        name: "departemen.index",
-        component: () => import("@/views/Departemen/indexPage.vue"),
-      },
-      {
-        path: "/departemen/create",
-        name: "departemen.create",
-        component: () => import("@/views/Departemen/createPage.vue"),
-      },
       // {
-      //     path: "/departemen/delete",
-      //     name: "departemen.delete",
-      //     component: () =>
-      //     import('@/views/Departemen/createPage.vue'),
+      //   path: "/departemen",
+      //   name: "departemen.index",
+      //   component: () => import("@/views/Departemen/indexPage.vue"),
       // },
-      {
-        path: "/departemen/edit/:id",
-        name: "departemen.edit",
-        component: () => import("@/views/Departemen/editPage.vue"),
-      },
-      {
-        path: "/pegawai",
-        name: "pegawai.index",
-        component: () => import("@/views/Pegawai/indexPage.vue"),
-      },
-      {
-        path: "/pegawai/create",
-        name: "pegawai.create",
-        component: () => import("@/views/Pegawai/createPage.vue"),
-      },
-      {
-        path: "/pegawai/edit/:id",
-        name: "pegawai.edit",
-        component: () => import("@/views/Pegawai/editPage.vue"),
-      },
-      {
-        path: "/proyek",
-        name: "proyek.index",
-        component: () => import("@/views/Proyek/indexPage.vue"),
-      },
-      {
-        path: "/proyek/create",
-        name: "proyek.create",
-        component: () => import("@/views/Proyek/createPage.vue"),
-      },
-      {
-        path: "/proyek/edit/:id",
-        name: "proyek.edit",
-        component: () => import("@/views/Proyek/editPage.vue"),
-      },
+      // {
+      //   path: "/departemen/create",
+      //   name: "departemen.create",
+      //   component: () => import("@/views/Departemen/createPage.vue"),
+      // },
+      // // {
+      // //     path: "/departemen/delete",
+      // //     name: "departemen.delete",
+      // //     component: () =>
+      // //     import('@/views/Departemen/createPage.vue'),
+      // // },
+      // {
+      //   path: "/departemen/edit/:id",
+      //   name: "departemen.edit",
+      //   component: () => import("@/views/Departemen/editPage.vue"),
+      // },
+      // {
+      //   path: "/pegawai",
+      //   name: "pegawai.index",
+      //   component: () => import("@/views/Pegawai/indexPage.vue"),
+      // },
+      // {
+      //   path: "/pegawai/create",
+      //   name: "pegawai.create",
+      //   component: () => import("@/views/Pegawai/createPage.vue"),
+      // },
+      // {
+      //   path: "/pegawai/edit/:id",
+      //   name: "pegawai.edit",
+      //   component: () => import("@/views/Pegawai/editPage.vue"),
+      // },
+      // {
+      //   path: "/proyek",
+      //   name: "proyek.index",
+      //   component: () => import("@/views/Proyek/indexPage.vue"),
+      // },
+      // {
+      //   path: "/proyek/create",
+      //   name: "proyek.create",
+      //   component: () => import("@/views/Proyek/createPage.vue"),
+      // },
+      // {
+      //   path: "/proyek/edit/:id",
+      //   name: "proyek.edit",
+      //   component: () => import("@/views/Proyek/editPage.vue"),
+      // },
       {
         path: "/pesanan_makanan",
         name: "pesanan_makanan.index",
