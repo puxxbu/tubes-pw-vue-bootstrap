@@ -54,14 +54,11 @@
                                     'pesanan_makanan.index'
                             }" class="nav-link">Pesanan Makanan</router-link>
                         </li>
-                       
+
                         <li class="nav-item">
-                            <router-link :to="{
-                                name:
-                                    'login'
-                            }" class="nav-link">Keluar</router-link>
+                            <p @click="logout" class="nav-link">Keluar</p>
                         </li>
-                        
+
                     </ul>
                 </div>
             </nav>
@@ -78,6 +75,36 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 export default {
+    // methods: {
+    //     logout() {
+    //         let token = localStorage.getItem('token')
+    //         console.log(token)
+    //         const router = useRouter()
+
+    //         let config = {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`
+    //             }
+    //         }
+    //         axios.post('https://tubes-hotel-pw.herokuapp.com/api/logout', config)
+    //             .then(response => {
+    //                 //assign state posts with response data
+    //                 console.log(response.data)
+    //                 localStorage.removeItem('token')
+    //                 localStorage.removeItem('id')
+    //                 localStorage.removeItem('nama_user')
+    //                 router.push({
+    //                     name: 'login'
+    //                 })
+
+    //             }).catch(error => {
+    //                 console.log(error.response.data.data)
+
+    //             })
+    //     },
+
+    // },
+
     setup() {
         let token = localStorage.getItem('token')
         let users = ref([])
@@ -101,12 +128,58 @@ export default {
                     })
                 })
         })
+
+
+        function logout() {
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            // axios.post('https://tubes-hotel-pw.herokuapp.com/api/logout', config)
+            //     .then(response => {
+            //         //assign state posts with response data
+            //         console.log(response.data)
+            //         localStorage.removeItem('token')
+            //         localStorage.removeItem('id')
+            //         localStorage.removeItem('nama_user')
+            //         router.push({
+            //             name: 'login'
+            //         })
+
+            //     }).catch(error => {
+            //         console.log(error.response.data.data)
+            //         console.log(token)
+
+            //     })
+
+            axios.post('https://tubes-hotel-pw.herokuapp.com/api/logout', config)
+                .then(response => {
+                    //assign state posts with response data
+                    console.log(response.data)
+                    // localStorage.removeItem('token')
+                    // localStorage.removeItem('id')
+                    // localStorage.removeItem('nama_user')
+                    // router.push({
+                    //     name: 'login'
+                    // })
+
+                }).catch(error => {
+                    console.log(error.response.data)
+                    console.log(token)
+
+                })
+
+        }
+
+        return {
+            logout
+        }
     }
 
 }
 </script>
 <style>
-
 body {
     font-size: .875rem;
 }
