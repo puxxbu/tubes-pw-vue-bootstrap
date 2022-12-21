@@ -63,19 +63,25 @@ export default {
                     //assign state posts with response data
                     user.value = response.data
                     console.log(user.value.id)
+                    axios.get('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan')
+                        .then(response => {
+                            //assign state posts with response data
+                            pesanan_makanans.value = response.data.data
+                            var filterData = pesanan_makanans.value.filter(function (el) {
+                                return el.user_id == user.value.id
+                            })
+
+                            pesanan_makanans.value = filterData
+                            console.log(user.value.id + "PESANAN")
+
+                        }).catch(error => {
+                            console.log(error.response.data)
+                        })
                 }).catch(error => {
                     console.log(error.response.data.data)
                 })
 
-            axios.get('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan')
-                .then(response => {
-                    //assign state posts with response data
-                    pesanan_makanans.value = response.data.data
-                    console.log(pesanan_makanans.value)
 
-                }).catch(error => {
-                    console.log(error.response.data)
-                })
         })
 
         const destroyPesanan = async (id) => {
@@ -84,14 +90,7 @@ export default {
                 .then(response => {
                     //assign state posts with response data
                     pesanan_makanans.value = response.data.data
-                }).catch(error => {
-                    console.log(error.response.data)
-                })
-            await axios.get('https://gentle-scrubland-87023.herokuapp.com/api/users')
-                .then(response => {
-                    //assign state posts with response data
                     toastr.success("Data Pesanan Berhasil dihapus !");
-                    user.value = response.data.data
                 }).catch(error => {
                     console.log(error.response.data)
                 })
