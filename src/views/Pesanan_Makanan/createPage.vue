@@ -25,7 +25,7 @@
                             <div class="form-group mb-3">
                                 <label class="form-label">Harga</label>
                                 <input type="text" class="form-control" v-model="pesanan_makanan.harga"
-                                    placeholder="Masukkan nama proyek">
+                                    placeholder="Masukkan harga makanan">
                                 <!-- validation -->
                                 <div v-if="validation.harga" class="mt-2 alert alert-danger">
                                     {{

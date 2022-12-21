@@ -20,7 +20,7 @@
                                     <th scope="col">TANGGAL LAHIR</th>
                                     <th scope="col">WILAYAH</th>
                                     <th scope="col">JENIS KELAMIN</th>
-                                    <th scope="col">ACTION</th>
+                                    <th scope="col">AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>
