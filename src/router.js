@@ -73,16 +73,6 @@ const routes = [
         name: "pesanan_makanan.edit",
         component: () => import("@/views/Pesanan_Makanan/editPage.vue"),
       },
-      {
-        path: "/datapenginap",
-        name: "datapenginap.index",
-        component: () => import("@/views/Data_Penginap/indexPage.vue"),
-      },
-      {
-        path: "/datapenginap/create",
-        name: "datapenginap.create",
-        component: () => import("@/views/Data_Penginap/createPage.vue"),
-      },
     ],
   },
   {

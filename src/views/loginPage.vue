@@ -149,7 +149,12 @@ export default {
                 toastr.success("Login Success");
 
                 localStorage.setItem('token', response.data.access_token)
-                console.log(localStorage.getItem('token'));
+                console.log(response.data.data.name + ' name');
+                localStorage.setItem('id', response.data.data.id);
+                localStorage.setItem('nama_user', response.data.data.name);
+                console.log(localStorage.getItem('nama_user') + ' name');
+                // console.log(localStorage.getItem('token'));
+                // console.log(localStorage.getItem('nama_user') + 'nama');
                 router.push({
                     name: 'beranda'
                 })

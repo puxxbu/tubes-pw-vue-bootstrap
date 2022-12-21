@@ -8,28 +8,32 @@
             <div class="col-md-12">
                 <div class="card border-0 rounded shadow">
                     <div class="card-body">
-                        <router-link :to="{ name: 'pesanan_makanan.create' }" class="btn btn-md btn-success">TAMBAH
-                            PESANAN
+                        <router-link :to="{ name: 'reservasi.create' }" class="btn btn-md btn-success">TAMBAH
+                            RESERVASI
                         </router-link>
                         <table class="table table-striped table-bordered mt-4">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">NAMA PESANAN</th>
-                                    <th scope="col">HARGA</th>
+                                    <th scope="col">JENIS_KAMAR</th>
+                                    <th scope="col">TANGGAL MASUK</th>
+                                    <th scope="col">TANGGAL KELUAR</th>
+                                    <th scope="col">STATUS</th>
                                     <th scope="col">AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(pesanan_makanan, id) in pesanan_makanans" :key="id">
-                                    <td>{{ pesanan_makanan.nama_pesanan }}</td>
-                                    <td>{{ pesanan_makanan.harga }}</td>
-                                    <td class="text-center">
+                                <tr v-for="(reservasi, id) in reservasis" :key="id">
+                                    <td>{{ reservasi.tipe_kamar }}</td>
+                                    <td>{{ reservasi.tanggal_masuk }}</td>
+                                    <td>{{ reservasi.tanggal_keluar }}</td>
+                                    <td>{{ reservasi.status }}</td>
+                                    <!-- <td class="text-center">
                                         <router-link :to="{
-                                            name: 'pesanan_makanan.edit', params: { id: pesanan_makanan.id }
+                                            name: 'reservasi.edit', params: { id: reservasi.id }
                                         }" class="btn btn-sm btn-primary mx-1">EDIT</router-link>
                                         <button class="btn btn-sm btn-danger mx-1"
-                                            @click="destroyPesanan(pesanan_makanan.id)">DELETE</button>
-                                    </td>
+                                            @click="destroyPesanan(reservasi.id)">DELETE</button>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>
@@ -48,7 +52,7 @@ import toastr from 'toastr'
 export default {
     setup() {
         //reactive state
-        let pesanan_makanans = ref([])
+        let reservasis = ref([])
         let user = ref([])
         let token = localStorage.getItem('token')
         //mounted
@@ -63,16 +67,17 @@ export default {
                     //assign state posts with response data
                     user.value = response.data
                     console.log(user.value.id)
-                    axios.get('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan')
+                    axios.get('https://tubes-hotel-pw.herokuapp.com/api/reservasi')
                         .then(response => {
                             //assign state posts with response data
-                            pesanan_makanans.value = response.data.data
-                            var filterData = pesanan_makanans.value.filter(function (el) {
-                                return el.user_id == user.value.id
-                            })
+                            reservasis.value = response.data.data
+                            console.log(reservasis.value)
+                            // var filterData = pesanan_makanans.value.filter(function (el) {
+                            //     return el.user_id == user.value.id
+                            // })
 
-                            pesanan_makanans.value = filterData
-                            console.log(user.value.id + "PESANAN")
+                            // pesanan_makanans.value = filterData
+                            // console.log(user.value.id + "PESANAN")
 
                         }).catch(error => {
                             console.log(error.response.data)
@@ -85,11 +90,11 @@ export default {
         })
 
         const destroyPesanan = async (id) => {
-            await axios.delete('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan/' + id)
-            await axios.get('https://tubes-hotel-pw.herokuapp.com/api/pesanan-makanan')
+            await axios.delete('https://tubes-hotel-pw.herokuapp.com/api/reservasi/' + id)
+            await axios.get('https://tubes-hotel-pw.herokuapp.com/api/reservasi')
                 .then(response => {
                     //assign state posts with response data
-                    pesanan_makanans.value = response.data.data
+                    reservasis.value = response.data.data
                     toastr.success("Data Pesanan Berhasil dihapus !");
                 }).catch(error => {
                     console.log(error.response.data)
@@ -99,7 +104,7 @@ export default {
 
         //return
         return {
-            pesanan_makanans,
+            reservasis,
             user,
             destroyPesanan
         }

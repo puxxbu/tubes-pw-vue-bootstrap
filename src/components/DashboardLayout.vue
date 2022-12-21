@@ -36,12 +36,6 @@
                                     'pesanan_makanan.index'
                             }" class="nav-link">Pesanan Makanan</router-link>
                         </li>
-                        <li class="nav-item">
-                            <router-link :to="{
-                                name:
-                                    'datapenginap.index'
-                            }" class="nav-link">Data Penginap</router-link>
-                        </li>
                     </ul>
                 </div>
             </nav>
