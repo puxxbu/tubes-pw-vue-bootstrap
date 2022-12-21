@@ -23,17 +23,17 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(reservasi, id) in reservasis" :key="id">
-                                    <td>{{ reservasi.jenis_kamar }}</td>
+                                    <td>{{ reservasi.tipe_kamar }}</td>
                                     <td>{{ reservasi.tanggal_masuk }}</td>
                                     <td>{{ reservasi.tanggal_keluar }}</td>
                                     <td>{{ reservasi.status }}</td>
-                                    <td class="text-center">
+                                    <!-- <td class="text-center">
                                         <router-link :to="{
                                             name: 'reservasi.edit', params: { id: reservasi.id }
                                         }" class="btn btn-sm btn-primary mx-1">EDIT</router-link>
                                         <button class="btn btn-sm btn-danger mx-1"
                                             @click="destroyPesanan(reservasi.id)">DELETE</button>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>
@@ -66,36 +66,36 @@ export default {
                 .then(response => {
                     //assign state posts with response data
                     user.value = response.data
-                    console.log(user.value.name)
+                    console.log(user.value.id)
+                    axios.get('https://tubes-hotel-pw.herokuapp.com/api/reservasi')
+                        .then(response => {
+                            //assign state posts with response data
+                            reservasis.value = response.data.data
+                            console.log(reservasis.value)
+                            // var filterData = pesanan_makanans.value.filter(function (el) {
+                            //     return el.user_id == user.value.id
+                            // })
+
+                            // pesanan_makanans.value = filterData
+                            // console.log(user.value.id + "PESANAN")
+
+                        }).catch(error => {
+                            console.log(error.response.data)
+                        })
                 }).catch(error => {
                     console.log(error.response.data.data)
                 })
-            axios.get('https://tubes-hotel-pw.herokuapp.com/api/reservasi')
-                .then(response => {
-                    //assign state posts with response data
-                    reservasis.value = response.reservasi
-                    console.log(response.reservasi + 'reservasi')
 
-                }).catch(error => {
-                    console.log(error.response.data)
-                })
 
         })
 
         const destroyPesanan = async (id) => {
             await axios.delete('https://tubes-hotel-pw.herokuapp.com/api/reservasi/' + id)
-            await axios.get('http://127.0.0.1:8000/api/reservasi/')
+            await axios.get('https://tubes-hotel-pw.herokuapp.com/api/reservasi')
                 .then(response => {
                     //assign state posts with response data
                     reservasis.value = response.data.data
-                }).catch(error => {
-                    console.log(error.response.data)
-                })
-            await axios.get('https://gentle-scrubland-87023.herokuapp.com/api/users')
-                .then(response => {
-                    //assign state posts with response data
                     toastr.success("Data Pesanan Berhasil dihapus !");
-                    user.value = response.data.data
                 }).catch(error => {
                     console.log(error.response.data)
                 })
