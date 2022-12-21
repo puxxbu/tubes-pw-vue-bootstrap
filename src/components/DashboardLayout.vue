@@ -39,7 +39,7 @@
                         <li class="nav-item">
                             <router-link :to="{
                                 name:
-                                    'reservasi.create'
+                                    'reservasi.index'
                             }" class="nav-link">Reservasi</router-link>
                         </li>
                     </ul>

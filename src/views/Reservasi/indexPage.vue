@@ -70,16 +70,16 @@ export default {
                 }).catch(error => {
                     console.log(error.response.data.data)
                 })
-                axios.get('http://127.0.0.1:8000/api/reservasi/')
-                    .then(response => {
-                        //assign state posts with response data
-                        reservasis.value = response.data.data
-                        console.log(reservasis.value)
+            axios.get('https://tubes-hotel-pw.herokuapp.com/api/reservasi')
+                .then(response => {
+                    //assign state posts with response data
+                    reservasis.value = response.reservasi
+                    console.log(response.reservasi + 'reservasi')
 
-                    }).catch(error => {
-                        console.log(error.response.data)
-                    })
-            
+                }).catch(error => {
+                    console.log(error.response.data)
+                })
+
         })
 
         const destroyPesanan = async (id) => {

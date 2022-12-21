@@ -9,49 +9,48 @@
                         <form @submit.prevent="store">
                             <div class="form-group mb-3">
                                 <label class="form-label">Jenis Kamar</label>
-                                <select label="Jenis Kamar" v-model="reservasi.jenis_kamar" class="form-control">
+                                <select label="Jenis Kamar" v-model="reservasi.tipe_kamar" class="form-control">
                                     <option value="" selected disabled hidden>Pilih Jenis Kamar</option>
                                     <option value="deluxe">Deluxe Room</option>
                                     <option value="presidential">Presidential Suite</option>
                                     <option value="superior">Superior Room</option>
                                     <option value="standard">Standard Room</option>
                                 </select>
-                                <!-- validation -->
-                                <div v-if="validation.jenis_kamar" class="mt-2 alert alert-danger">
+                                <!-- <div v-if="validation.jenis_kamar" class="mt-2 alert alert-danger">
                                     {{
                                             validation.jenis_kamar[0]
                                     }}
-                                </div>
+                                </div> -->
                             </div>
                             <div class="form-group mb-3">
                                 <label for="content" class="form-label">Tanggal Masuk</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="datepicker"
                                         v-model="reservasi.tanggal_masuk">
-                                        <span class="input-group-text bg-light d-block">
-                                            <font-awesome-icon icon="fa-solid fa-calendar-alt" />
+                                    <span class="input-group-text bg-light d-block">
+                                        <font-awesome-icon icon="fa-solid fa-calendar-alt" />
                                     </span>
                                 </div>
-                                <div v-if="validation.tanggal_masuk" class="mt-2 alert alert-danger">
+                                <!-- <div v-if="validation.tanggal_masuk" class="mt-2 alert alert-danger">
                                     {{
                                             validation.tanggal_masuk[0]
                                     }}
-                                </div>
+                                </div> -->
                             </div>
                             <div class="form-group mb-3">
                                 <label for="content" class="form-label">Tanggal Keluar</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="datepicker2"
                                         v-model="reservasi.tanggal_keluar">
-                                        <span class="input-group-text bg-light d-block">
-                                            <font-awesome-icon icon="fa-solid fa-calendar-alt" />
+                                    <span class="input-group-text bg-light d-block">
+                                        <font-awesome-icon icon="fa-solid fa-calendar-alt" />
                                     </span>
                                 </div>
-                                <div v-if="validation.tanggal_keluar" class="mt-2 alert alert-danger">
+                                <!-- <div v-if="validation.tanggal_keluar" class="mt-2 alert alert-danger">
                                     {{
-                                            validation.tanggal_keluar[0]
+        validation.tanggal_keluar[0]
                                     }}
-                                </div>
+                                </div> -->
                             </div>
 
                             <button type="submit" class="btn btn-primary">SIMPAN</button>
@@ -76,23 +75,23 @@ import toastr from 'toastr'
 
 export default {
     methods: {
-        setDateValue1(value){
+        setDateValue1(value) {
             this.reservasi.tanggal_masuk = value;
         },
-        setDateValue2(value){
+        setDateValue2(value) {
             this.reservasi.tanggal_keluar = value;
         },
-        
+
     },
 
     mounted() {
         $('#datepicker').datepicker({
             dateFormat: "yy-mm-dd",
-            onSelect : this.setDateValue1
+            onSelect: this.setDateValue1
         });
         $('#datepicker2').datepicker({
             dateFormat: "yy-mm-dd",
-            onSelect : this.setDateValue2
+            onSelect: this.setDateValue2
         });
     },
     setup() {
@@ -128,10 +127,10 @@ export default {
 
         const reservasi = reactive({
             jenis_kamar: '',
-            nama_pemesan:'',
+            nama_pemesan: localStorage.getItem('nama_user'),
             tanggal_masuk: '',
-            tanggal_keluar:'',
-            status:"Booked"
+            tanggal_keluar: '',
+            status: "Booked"
         })
         //state validation
         const validation = ref([])
@@ -139,17 +138,21 @@ export default {
         const router = useRouter()
         //method store
         function store() {
+
             console.log(reservasi)
-            let jenis_kamar = reservasi.jenis_kama
+            console.log(users.value.name + 'nama')
+            let tipe_kamar = reservasi.tipe_kamar
             let tanggal_masuk = reservasi.tanggal_masuk
             let tanggal_keluar = reservasi.tanggal_keluar
+            // let nama_pemesan = users.value.name
             let status = reservasi.status
-            axios.post('http://127.0.0.1:8000/api/reservasi', {
-                jenis_kamar: jenis_kamar,
-                nama_pemesan: users.value.name,
-                tanggal_masuk:tanggal_masuk,
-                tanggal_keluar:tanggal_keluar,
-                status:status
+
+            axios.post('https://tubes-hotel-pw.herokuapp.com/api/reservasi', {
+                tipe_kamar: tipe_kamar,
+                nama_pemesan: localStorage.getItem('nama_user'),
+                tanggal_masuk: tanggal_masuk,
+                tanggal_keluar: tanggal_keluar,
+                status: status
             }).then(() => {
                 //redirect ke post index
                 toastr.success('Reservasi telah berhasil dibuat');
