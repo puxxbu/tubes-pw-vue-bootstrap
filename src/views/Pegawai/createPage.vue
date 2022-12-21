@@ -6,27 +6,27 @@
             <div class="col-md-12">
                 <div class="card border-0 rounded shadow">
                     <div class="card-body">
-                        <h4>TAMBAH PEGAWAI</h4>
+                        <h4>Buat Reservasi</h4>
                         <hr>
                         <form @submit.prevent="store">
                             <div class="form-group mb-3">
-                                <label class="form-label">NIP</label>
-                                <input type="text" class="form-control" v-model="pegawai.nomor_induk_pegawai"
+                                <label class="form-label">Tipe Kamar</label>
+                                <input type="text" class="form-control" v-model="reservasi.tipe_kamar"
                                     placeholder="Masukkan nomor induk pegawai">
                                 <!-- validation -->
-                                <div v-if="validation.nomor_induk_pegawai" class="mt-2 alert alert-danger">
+                                <div v-if="validation.tipe_kamar" class="mt-2 alert alert-danger">
                                     {{
-                                            validation.nomor_induk_pegawai[0]
+                                            validation.tipe_kamar[0]
                                     }}
                                 </div>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="content" class="form-label">Nama Pegawai</label>
-                                <input class="form-control" v-model="pegawai.nama_pegawai"
-                                    placeholder="Masukkan nama pegawai">
+                                <label for="content" class="form-label">Nama Pemesan</label>
+                                <input class="form-control" v-model="reservasi.nama_pemesan"
+                                    placeholder="Masukkan nama pemesan">
                                 <!-- validation -->
-                                <div v-if="validation.nama_pegawai" class="mt-2 alert alert-danger">
-                                    {{ validation.nama_pegawai[0]
+                                <div v-if="validation.nama_pemesan" class="mt-2 alert alert-danger">
+                                    {{ validation.nama_pemesan[0]
                                     }}
                                 </div>
                             </div>

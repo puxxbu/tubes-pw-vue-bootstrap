@@ -73,16 +73,6 @@ const routes = [
         name: "pesanan_makanan.edit",
         component: () => import("@/views/Pesanan_Makanan/editPage.vue"),
       },
-      {
-        path: "/reservasi/create",
-        name: "reservasi.create",
-        component: () => import("@/views/Reservasi/createPage.vue"),
-      },
-      {
-        path: "/reservasi",
-        name: "reservasi.index",
-        component: () => import("@/views/Reservasi/indexPage.vue"),
-      },
     ],
   },
   {
