@@ -27,7 +27,7 @@
                                 <!-- validation -->
                                 <div v-if="validation.nama" class="mt-2 alert alert-danger">
                                     {{
-        validation.nama[0]
+                                            validation.nama[0]
                                     }}
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 <!-- validation -->
                                 <div v-if="validation.jenis_kelamin" class="mt-2 alert alert-danger">
                                     {{
-        validation.jenis_kelamin[0]
+                                            validation.jenis_kelamin[0]
                                     }}
                                 </div>
                             </div>
@@ -92,7 +92,7 @@ import toastr from 'toastr'
 
 export default {
     methods: {
-        setDateValue1(value){
+        setDateValue1(value) {
             this.data_penginaps.tanggal_lahir = value;
         },
 
@@ -100,7 +100,7 @@ export default {
     mounted() {
         $('#datepicker').datepicker({
             dateFormat: "dd-mm-yy",
-            onSelect : this.setDateValue1
+            onSelect: this.setDateValue1
         });
     },
 
@@ -180,7 +180,7 @@ export default {
                 wilayah: wilayah,
                 jenis_kelamin: jenis_kelamin,
                 tanggal_lahir: tanggal_lahir,
-                user_id: users.value.id,
+                user_id: localStorage.getItem('id'),
 
             }).then(() => {
                 //redirect ke post index

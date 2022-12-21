@@ -24,14 +24,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(data_penginap, id) in data_penginapS" :key="id">
-                                    <template v-for="(user, id) in users" :key="id">
-                                        <td v-if="user.id == data_penginap.user_id">{{ user.name
-                                        }}</td>
-                                    </template>
+                                <tr v-for="(data_penginap, id) in data_penginaps" :key="id">
+                                    <td>{{ nama_user }}</td>
                                     <td>{{ data_penginap.nik }}</td>
                                     <td>{{ data_penginap.nama }}</td>
-                                    <td>{{ data_penginap.tanngal_lahir }}</td>
+                                    <td>{{ data_penginap.tanggal_lahir }}</td>
                                     <td>{{ data_penginap.wilayah }}</td>
                                     <td>{{ data_penginap.jenis_kelamin }}</td>
                                     <td class="text-center">
@@ -61,6 +58,8 @@ export default {
         //reactive state
         let data_penginaps = ref([])
         let user = ref([])
+        let nama_user = localStorage.getItem('nama_user')
+        console.log(nama_user)
         let token = localStorage.getItem('token')
         //mounted
         onMounted(() => {
@@ -78,12 +77,14 @@ export default {
                         .then(response => {
                             //assign state posts with response data
                             data_penginaps.value = response.data.data
+                            console.log(data_penginaps.value)
                             var filterData = data_penginaps.value.filter(function (el) {
-                                return el.user_id == user.value.id
+                                return el.user_id == localStorage.getItem('id')
                             })
 
                             data_penginaps.value = filterData
-                            console.log(user.value.id + "PESANAN")
+                            data_penginaps.value.nama_user = localStorage.getItem('nama_user')
+
 
                         }).catch(error => {
                             console.log(error.response.data)
@@ -101,7 +102,7 @@ export default {
                 .then(response => {
                     //assign state posts with response data
                     data_penginaps.value = response.data.data
-                    toastr.success("Data Penginap Berhasil dihapus !");
+                    toastr.success("Data Pesanan Berhasil dihapus !");
                 }).catch(error => {
                     console.log(error.response.data)
                 })
@@ -112,6 +113,7 @@ export default {
         return {
             data_penginaps,
             user,
+            nama_user,
             destroyPenginap
         }
     },

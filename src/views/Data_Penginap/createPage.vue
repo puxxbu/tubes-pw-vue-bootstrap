@@ -33,7 +33,7 @@
                                     }}
                                 </div>
                             </div>
-                            
+
                             <div class="form-group mb-3">
                                 <label class="form-label">Nama Penginap</label>
                                 <input type="text" class="form-control" v-model="data_penginap.nama"
@@ -65,7 +65,7 @@
                                 <!-- validation -->
                                 <div v-if="validation.jenis_kelamin" class="mt-2 alert alert-danger">
                                     {{
-        validation.jenis_kelamin[0]
+                                            validation.jenis_kelamin[0]
                                     }}
                                 </div>
                             </div>
@@ -79,11 +79,11 @@
                                         <font-awesome-icon icon="fa-solid fa-calendar-alt" />
                                     </span>
                                 </div>
-                                <!-- <div v-if="validation.tanggal_masuk" class="mt-2 alert alert-danger">
+                                <div v-if="validation.tanggal_lahir" class="mt-2 alert alert-danger">
                                     {{
-                                            validation.tanggal_masuk[0]
+        validation.tanggal_lahir[0]
                                     }}
-                                </div> -->
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary">SIMPAN</button>
@@ -175,7 +175,7 @@ export default {
                 wilayah: wilayah,
                 jenis_kelamin: jenis_kelamin,
                 tanggal_lahir: tanggal_lahir,
-                user_id: users.value.id
+                user_id: localStorage.getItem('id')
             }).then(() => {
                 //redirect ke post index
                 toastr.success('Pesanan telah berhasil dibuat');
