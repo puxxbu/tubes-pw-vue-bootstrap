@@ -33,8 +33,14 @@
                         <li class="nav-item">
                             <router-link :to="{
                                 name:
+                                    'user.index'
+                            }" class="nav-link">Profile User</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link :to="{
+                                name:
                                     'data_penginap.index'
-                            }" class="nav-link">Akun Penginap</router-link>
+                            }" class="nav-link">Data Penginap</router-link>
                         </li>
                         <li class="nav-item">
                             <router-link :to="{
@@ -48,11 +54,12 @@
                                     'pesanan_makanan.index'
                             }" class="nav-link">Pesanan Makanan</router-link>
                         </li>
+                       
                         <li class="nav-item">
                             <router-link :to="{
                                 name:
-                                    'data_penginap.index'
-                            }" class="nav-link">Data Penginap</router-link>
+                                    'login'
+                            }" class="nav-link">Keluar</router-link>
                         </li>
                         
                     </ul>

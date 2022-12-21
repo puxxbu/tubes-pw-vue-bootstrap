@@ -98,6 +98,16 @@ const routes = [
         name: "data_penginap.edit",
         component: () => import("@/views/Data_Penginap/editPage.vue"),
       },
+      {
+        path: "/user",
+        name: "user.index",
+        component: () => import("@/views/User/indexPage.vue"),
+      },
+      {
+        path: "/user",
+        name: "user.edit",
+        component: () => import("@/views/User/editPage.vue"),
+      },
     ],
   },
   {
@@ -110,6 +120,11 @@ const routes = [
     name: "login",
     component: () => import("@/views/loginPage.vue"),
   },
+  // {
+  //   path: "/logout",
+  //   name: "logout",
+  //   component: () => import("@/views/logoutPage.vue"),
+  // },
 ];
 //create router
 const router = createRouter({
